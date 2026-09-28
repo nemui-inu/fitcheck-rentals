@@ -19,4 +19,12 @@ class RentalDays
 
         return (int) $start->diffInDays($end) + 1;
     }
+
+    public static function late(DateTimeInterface $end, DateTimeInterface $returnedAt): int
+    {
+        $end = CarbonImmutable::instance($end)->startOfDay();
+        $returnedAt = CarbonImmutable::instance($returnedAt)->startOfDay();
+
+        return max((int) $end->diffInDays($returnedAt), 0);
+    }
 }
