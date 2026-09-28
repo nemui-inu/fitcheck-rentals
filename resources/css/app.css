@@ -1,9 +1,9 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@import '@fontsource/bebas-neue';
-@import '@fontsource-variable/roboto';
-@import '@fontsource-variable/jetbrains-mono';
+@import "@fontsource/bebas-neue";
+@import "@fontsource-variable/roboto";
+@import "@fontsource-variable/jetbrains-mono";
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -11,10 +11,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: 'Roboto Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Bebas Neue', 'Roboto Variable', sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
-  --font-brand: 'Roboto Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Roboto Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bebas Neue", "Roboto Variable", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-brand: "Roboto Variable", ui-sans-serif, system-ui, sans-serif;
 
   --radius-xs: 0;
   --radius-sm: 0;

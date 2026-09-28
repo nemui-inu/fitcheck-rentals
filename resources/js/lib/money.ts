@@ -1,7 +1,7 @@
-const peso = new Intl.NumberFormat('en-PH', {
-  style: 'currency',
-  currency: 'PHP',
-  currencyDisplay: 'narrowSymbol',
+const peso = new Intl.NumberFormat("en-PH", {
+  style: "currency",
+  currency: "PHP",
+  currencyDisplay: "narrowSymbol",
 });
 
 export function formatPeso(centavos: number): string {
