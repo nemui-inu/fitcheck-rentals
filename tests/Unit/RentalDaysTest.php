@@ -26,13 +26,16 @@ describe('count', function () {
 
 describe('late', function () {
     it('counts late days', function (string $end, string $returnedAt, int $days) {
-        $end = CarbonImmutable::parse($end);
-        $returnedAt = CarbonImmutable::parse($returnedAt);
+        $end = CarbonImmutable::parse($end, RentalDays::TIMEZONE);
+        $returnedAt = CarbonImmutable::parse($returnedAt, RentalDays::TIMEZONE);
 
         expect(RentalDays::late($end, $returnedAt))->toBe($days);
     })->with([
         'returned on the same day' => ['2026-10-14', '2026-10-14 21:00', 0],
         'returned late' => ['2026-10-14', '2026-10-17 23:59', 3],
         'returned early' => ['2026-10-14', '2026-10-12 07:00', 0],
+        'returned using a UTC return date' => ['2026-10-14', '2026-10-14T17:00+00:00', 1],
+        'returned using an Asia/Manila return date' => ['2026-10-14', '2026-10-14T17:00+08:00', 0],
+        'end date using different timezone' => ['2026-10-14T20:00:00-05:00', '2026-10-15 10:00', 1],
     ]);
 });
