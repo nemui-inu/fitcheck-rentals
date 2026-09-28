@@ -11,190 +11,190 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-sans: 'Roboto Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Bebas Neue', 'Roboto Variable', sans-serif;
-    --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
-    --font-brand: 'Roboto Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Roboto Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bebas Neue', 'Roboto Variable', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --font-brand: 'Roboto Variable', ui-sans-serif, system-ui, sans-serif;
 
-    --radius-xs: 0;
-    --radius-sm: 0;
-    --radius-md: 0;
-    --radius-lg: 0;
-    --radius-xl: 0;
-    --radius-2xl: 0;
-    --radius-3xl: 0;
-    --radius-4xl: 0;
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
 
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
 
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
 
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
 
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
 
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
-    --color-highlight: var(--highlight);
-    --color-highlight-foreground: var(--highlight-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
 
-    --color-destructive: var(--destructive);
-    --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
 
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 :root {
-    --radius: 0;
+  --radius: 0;
 
-    --background: #F4EDE0;
-    --foreground: #1C1A17;
-    --card: #FBF7EF;
-    --card-foreground: #1C1A17;
-    --popover: #FBF7EF;
-    --popover-foreground: #1C1A17;
+  --background: #f4ede0;
+  --foreground: #1c1a17;
+  --card: #fbf7ef;
+  --card-foreground: #1c1a17;
+  --popover: #fbf7ef;
+  --popover-foreground: #1c1a17;
 
-    --primary: #FF5C8A;
-    --primary-foreground: #1C1A17;
-    --secondary: #3255A4;
-    --secondary-foreground: #F4EDE0;
-    --muted: #E8DFD0;
-    --muted-foreground: #6B6358;
-    --accent: #E8DFD0;
-    --accent-foreground: #1C1A17;
-    --highlight: #FFC93C;
-    --highlight-foreground: #1C1A17;
-    --destructive: #C4372B;
-    --destructive-foreground: #C4372B;
+  --primary: #ff5c8a;
+  --primary-foreground: #1c1a17;
+  --secondary: #3255a4;
+  --secondary-foreground: #f4ede0;
+  --muted: #e8dfd0;
+  --muted-foreground: #6b6358;
+  --accent: #e8dfd0;
+  --accent-foreground: #1c1a17;
+  --highlight: #ffc93c;
+  --highlight-foreground: #1c1a17;
+  --destructive: #c4372b;
+  --destructive-foreground: #c4372b;
 
-    --border: #D6CBB8;
-    --input: #D6CBB8;
-    --ring: #3255A4;
+  --border: #d6cbb8;
+  --input: #d6cbb8;
+  --ring: #3255a4;
 
-    --chart-1: #FF5C8A;
-    --chart-2: #3255A4;
-    --chart-3: #FFC93C;
-    --chart-4: #1C1A17;
-    --chart-5: #6B6358;
+  --chart-1: #ff5c8a;
+  --chart-2: #3255a4;
+  --chart-3: #ffc93c;
+  --chart-4: #1c1a17;
+  --chart-5: #6b6358;
 
-    --sidebar: #FBF7EF;
-    --sidebar-foreground: #1C1A17;
-    --sidebar-primary: #FF5C8A;
-    --sidebar-primary-foreground: #1C1A17;
-    --sidebar-accent: #E8DFD0;
-    --sidebar-accent-foreground: #1C1A17;
-    --sidebar-border: #D6CBB8;
-    --sidebar-ring: #3255A4;
+  --sidebar: #fbf7ef;
+  --sidebar-foreground: #1c1a17;
+  --sidebar-primary: #ff5c8a;
+  --sidebar-primary-foreground: #1c1a17;
+  --sidebar-accent: #e8dfd0;
+  --sidebar-accent-foreground: #1c1a17;
+  --sidebar-border: #d6cbb8;
+  --sidebar-ring: #3255a4;
 }
 
 .dark {
-    --background: #16151A;
-    --foreground: #F4EDE0;
-    --card: #1F1D24;
-    --card-foreground: #F4EDE0;
-    --popover: #1F1D24;
-    --popover-foreground: #F4EDE0;
+  --background: #16151a;
+  --foreground: #f4ede0;
+  --card: #1f1d24;
+  --card-foreground: #f4ede0;
+  --popover: #1f1d24;
+  --popover-foreground: #f4ede0;
 
-    --primary: #FF6A95;
-    --primary-foreground: #16151A;
-    --secondary: #6C8CE0;
-    --secondary-foreground: #16151A;
-    --muted: #2A2830;
-    --muted-foreground: #A39B8E;
-    --accent: #2A2830;
-    --accent-foreground: #F4EDE0;
-    --highlight: #FFD25C;
-    --highlight-foreground: #16151A;
-    --destructive: #E0564A;
-    --destructive-foreground: #E0564A;
+  --primary: #ff6a95;
+  --primary-foreground: #16151a;
+  --secondary: #6c8ce0;
+  --secondary-foreground: #16151a;
+  --muted: #2a2830;
+  --muted-foreground: #a39b8e;
+  --accent: #2a2830;
+  --accent-foreground: #f4ede0;
+  --highlight: #ffd25c;
+  --highlight-foreground: #16151a;
+  --destructive: #e0564a;
+  --destructive-foreground: #e0564a;
 
-    --border: #34313B;
-    --input: #34313B;
-    --ring: #6C8CE0;
+  --border: #34313b;
+  --input: #34313b;
+  --ring: #6c8ce0;
 
-    --chart-1: #FF6A95;
-    --chart-2: #6C8CE0;
-    --chart-3: #FFD25C;
-    --chart-4: #F4EDE0;
-    --chart-5: #A39B8E;
+  --chart-1: #ff6a95;
+  --chart-2: #6c8ce0;
+  --chart-3: #ffd25c;
+  --chart-4: #f4ede0;
+  --chart-5: #a39b8e;
 
-    --sidebar: #1F1D24;
-    --sidebar-foreground: #F4EDE0;
-    --sidebar-primary: #FF6A95;
-    --sidebar-primary-foreground: #16151A;
-    --sidebar-accent: #2A2830;
-    --sidebar-accent-foreground: #F4EDE0;
-    --sidebar-border: #34313B;
-    --sidebar-ring: #6C8CE0;
+  --sidebar: #1f1d24;
+  --sidebar-foreground: #f4ede0;
+  --sidebar-primary: #ff6a95;
+  --sidebar-primary-foreground: #16151a;
+  --sidebar-accent: #2a2830;
+  --sidebar-accent-foreground: #f4ede0;
+  --sidebar-border: #34313b;
+  --sidebar-ring: #6c8ce0;
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
+  * {
+    @apply border-border;
+  }
 
-    body {
-        @apply bg-background font-sans text-foreground;
-    }
+  body {
+    @apply bg-background font-sans text-foreground;
+  }
 
-    h1,
-    h2 {
-        font-family: var(--font-display);
-        font-weight: 400;
-        line-height: 1;
-        letter-spacing: 0.01em;
-    }
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
 
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.875rem;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  @media (min-width: 48rem) {
     h1 {
-        font-size: 2.25rem;
+      font-size: 3rem;
     }
+  }
 
-    h2 {
-        font-size: 1.875rem;
-    }
-
-    h3 {
-        font-size: 1.125rem;
-        font-weight: 700;
-    }
-
-    @media (min-width: 48rem) {
-        h1 {
-            font-size: 3rem;
-        }
-    }
-
-    svg.lucide {
-        stroke-linecap: square;
-        stroke-linejoin: miter;
-        stroke-width: 2.25;
-    }
+  svg.lucide {
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    stroke-width: 2.25;
+  }
 }
