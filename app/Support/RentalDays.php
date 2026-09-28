@@ -4,6 +4,7 @@ namespace App\Support;
 
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
+use InvalidArgumentException;
 
 class RentalDays
 {
@@ -11,6 +12,10 @@ class RentalDays
     {
         $start = CarbonImmutable::instance($start)->startOfDay();
         $end = CarbonImmutable::instance($end)->startOfDay();
+
+        if ($end->lessThan($start)) {
+            throw new InvalidArgumentException('End date must be set later than the start date.');
+        }
 
         return (int) $start->diffInDays($end) + 1;
     }

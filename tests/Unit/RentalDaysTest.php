@@ -3,29 +3,21 @@
 use App\Support\RentalDays;
 use Carbon\CarbonImmutable;
 
-it('counts as 1 day when the rental starts and end on the same day', function () {
-    $start = CarbonImmutable::parse('2026-10-12');
-    $end = CarbonImmutable::parse('2026-10-12');
+it('counts rental days', function (string $start, string $end, int $days) {
+    $start = CarbonImmutable::parse($start);
+    $end = CarbonImmutable::parse($end);
 
-    $days = RentalDays::count($start, $end);
+    expect(RentalDays::count($start, $end))->toBe($days);
+})->with([
+    'same day' => ['2026-10-12', '2026-10-12', 1],
+    'different days' => ['2026-10-12', '2026-10-14', 3],
+    'month boundary' => ['2026-10-30', '2026-11-02', 4],
+    'time of day ignored' => ['2026-10-12 23:59', '2026-10-13 00:01', 2],
+]);
 
-    expect($days)->toBe(1);
-});
-
-it('counts the rental duration from start to end', function () {
-    $start = CarbonImmutable::parse('2026-10-12');
-    $end = CarbonImmutable::parse('2026-10-14');
-
-    $days = RentalDays::count($start, $end);
-
-    expect($days)->toBe(3);
-});
-
-it('counts the days regardless of the time of day', function () {
-    $start = CarbonImmutable::parse('2026-10-12 23:59');
+it('rejects an end date set before the start date', function () {
+    $start = CarbonImmutable::parse('2026-10-14 23:59');
     $end = CarbonImmutable::parse('2026-10-13 00:01');
 
-    $days = RentalDays::count($start, $end);
-
-    expect($days)->toBe(2);
-});
+    RentalDays::count($start, $end);
+})->throws(InvalidArgumentException::class);
