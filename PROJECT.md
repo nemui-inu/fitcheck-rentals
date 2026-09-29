@@ -117,13 +117,13 @@ Foreign keys on rows with history use `restrictOnDelete`. `item_images` cascades
 
 Allowed transitions:
 
-| From | To | Who |
-|---|---|---|
-| pending | approved, rejected | owner |
-| pending | cancelled | renter |
-| approved | active | owner, at pickup |
-| approved | cancelled | renter or owner |
-| active | returned | owner |
+| From     | To                 | Who              |
+| -------- | ------------------ | ---------------- |
+| pending  | approved, rejected | owner            |
+| pending  | cancelled          | renter           |
+| approved | active             | owner, at pickup |
+| approved | cancelled          | renter or owner  |
+| active   | returned           | owner            |
 
 **Request (renter).** Pick an active item and a date range. The renter must have a phone number, or the form asks for one first. The server picks the first unit of that item that is `active` and free for the range and stores it on the booking. If none is free, reject with "Those dates are fully booked. Pick another range." `total` is `RentalDays::count()` times `daily_rate`. `deposit` is copied from the item. One pending request per renter per item.
 
@@ -159,13 +159,13 @@ Tokens live in `resources/css/app.css`. Zero radius everywhere except avatar, sw
 
 **Color layers.** Paper and ink cover about 80% of the UI. Pink covers about 20%: the logo, active nav marker, selected item, and one primary action per screen. Status colors appear only in badges, stamps, and small alerts.
 
-| Status | Token | Style |
-|---|---|---|
-| pending, pending_review | highlight | filled |
-| approved | info | outlined |
-| active | primary | filled |
-| returned | muted | faded outline |
-| rejected, cancelled, taken_down | destructive | outlined |
+| Status                          | Token       | Style         |
+| ------------------------------- | ----------- | ------------- |
+| pending, pending_review         | highlight   | filled        |
+| approved                        | info        | outlined      |
+| active                          | primary     | filled        |
+| returned                        | muted       | faded outline |
+| rejected, cancelled, taken_down | destructive | outlined      |
 
 Errors use an inverted ink label reading ERROR plus clear wording.
 

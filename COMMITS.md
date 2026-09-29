@@ -19,18 +19,18 @@ optional footer
 
 ## Types
 
-| Type | Use for | Example |
-|---|---|---|
-| `feat` | A new user facing feature | `feat(booking): add approval with unit assignment` |
-| `fix` | A bug fix | `fix(availability): include turnaround days in overlap check` |
-| `test` | Adding or fixing tests only | `test(booking): cover double approval race` |
-| `refactor` | Code change with no behavior change | `refactor(payments): extract refund calculation` |
-| `style` | Formatting, Pint, whitespace. Not CSS | `style: run pint` |
-| `docs` | Docs, help page content, README | `docs(help): add damage section` |
-| `perf` | Performance improvement | `perf(marketplace): add fulltext index on items` |
-| `build` | Dependencies, Vite, build config | `build: bump inertia to v3` |
-| `ci` | CI pipelines | `ci: add test workflow` |
-| `chore` | Tooling and housekeeping that fits nothing above | `chore(docker): add mysql healthcheck` |
+| Type       | Use for                                          | Example                                                       |
+| ---------- | ------------------------------------------------ | ------------------------------------------------------------- |
+| `feat`     | A new user facing feature                        | `feat(booking): add approval with unit assignment`            |
+| `fix`      | A bug fix                                        | `fix(availability): include turnaround days in overlap check` |
+| `test`     | Adding or fixing tests only                      | `test(booking): cover double approval race`                   |
+| `refactor` | Code change with no behavior change              | `refactor(payments): extract refund calculation`              |
+| `style`    | Formatting, Pint, whitespace. Not CSS            | `style: run pint`                                             |
+| `docs`     | Docs, help page content, README                  | `docs(help): add damage section`                              |
+| `perf`     | Performance improvement                          | `perf(marketplace): add fulltext index on items`              |
+| `build`    | Dependencies, Vite, build config                 | `build: bump inertia to v3`                                   |
+| `ci`       | CI pipelines                                     | `ci: add test workflow`                                       |
+| `chore`    | Tooling and housekeeping that fits nothing above | `chore(docker): add mysql healthcheck`                        |
 
 UI styling work (theme, components, layouts) is `feat` when users see something new, `fix` when correcting how it looks, `refactor` when only cleaning code.
 
