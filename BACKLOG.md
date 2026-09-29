@@ -19,8 +19,8 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 ## Phase 1: Accounts and roles
 
-- [ ] `Role` enum
-- [ ] Migration: `role`, `phone`, `suspended_at` on users, `password` nullable
+- [x] `Role` enum
+- [x] Migration: `role`, `phone`, `suspended_at` on users, `password` nullable
 - [ ] `owner_profiles` migration and model
 - [ ] `owner` and `admin` middleware
 - [ ] Share `isOwner` and `isAdmin` through Inertia
