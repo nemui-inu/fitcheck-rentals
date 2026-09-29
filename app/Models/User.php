@@ -34,6 +34,10 @@ class User extends Authenticatable
 
     use Notifiable;
 
+    protected $attributes = [
+        'role' => Role::User->value,
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
