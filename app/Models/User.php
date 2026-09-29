@@ -54,4 +54,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(OwnerProfile::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === Role::Admin;
+    }
+
+    public function isOwner(): bool
+    {
+        return $this->ownerProfile()->exists();
+    }
 }

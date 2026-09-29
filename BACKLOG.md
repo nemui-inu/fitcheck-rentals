@@ -22,7 +22,7 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 - [x] `Role` enum
 - [x] Migration: `role`, `phone`, `suspended_at` on users, `password` nullable
 - [x] `owner_profiles` migration and model
-- [ ] `owner` and `admin` middleware
+- [x] `owner` and `admin` middleware
 - [ ] Share `isOwner` and `isAdmin` through Inertia
 - [ ] Block suspended users at login
 - [ ] Owner profile setup page (requires phone)
