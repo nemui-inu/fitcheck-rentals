@@ -46,11 +46,12 @@ Laravel 13, Inertia, React, TypeScript, Tailwind CSS v4, shadcn/ui, Fortify, Soc
 git clone <repo-url> fitcheck-rentals
 cd fitcheck-rentals
 composer run setup
+php artisan storage:link
 php artisan db:seed
 composer run dev
 ```
 
-`composer run setup` installs dependencies, creates `.env` from `.env.example`, generates the app key, starts MySQL in Docker, runs migrations, and builds the frontend. `composer run dev` starts MySQL, the app server, the queue, logs, and Vite together.
+`php artisan storage:link` makes uploaded item photos public. `composer run setup` installs dependencies, creates `.env` from `.env.example`, generates the app key, starts MySQL in Docker, runs migrations, and builds the frontend. `composer run dev` starts MySQL, the app server, the queue, logs, and Vite together.
 
 Open http://127.0.0.1:8000.
 
@@ -58,12 +59,13 @@ Open http://127.0.0.1:8000.
 
 All use the password `password`.
 
-| Email                  | Role                 |
-| ---------------------- | -------------------- |
-| `admin@fitcheck.test`  | Admin                |
-| `owner@fitcheck.test`  | Owner                |
-| `renter@fitcheck.test` | Renter               |
-| `both@fitcheck.test`   | Owner who also rents |
+| Email                     | Role                                                     |
+| ------------------------- | -------------------------------------------------------- |
+| `admin@fitcheck.test`     | Admin                                                    |
+| `owner@fitcheck.test`     | Owner                                                    |
+| `renter@fitcheck.test`    | Renter                                                   |
+| `both@fitcheck.test`      | Owner who also rents                                     |
+| `suspended@fitcheck.test` | Suspended owner. Cannot log in, and their item is hidden |
 
 ### Social login
 
@@ -76,7 +78,7 @@ FACEBOOK_CLIENT_ID=
 FACEBOOK_CLIENT_SECRET=
 ```
 
-Set the redirect URLs in each provider's console to:
+Users link and unlink providers under Settings, Connected accounts. Set the redirect URLs in each provider's console to:
 
 - `http://127.0.0.1:8000/auth/google/callback`
 - `http://127.0.0.1:8000/auth/facebook/callback`
@@ -98,4 +100,5 @@ Set the redirect URLs in each provider's console to:
 - [`PROJECT.md`](PROJECT.md): scope, schema, rules, and design system
 - [`BACKLOG.md`](BACKLOG.md): build order and progress
 - [`COMMITS.md`](COMMITS.md): commit message conventions
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): code map, request flow, where rules live, and gotchas
 - [`docs/DIAGRAMS.md`](docs/DIAGRAMS.md): ERD and user flows
