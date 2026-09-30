@@ -1,4 +1,10 @@
-import { Head } from "@inertiajs/react";
+import { Form, Head, Link, usePage } from "@inertiajs/react";
+import BookingController from "@/actions/App/Http/Controllers/BookingController";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { login } from "@/routes";
 import { useState } from "react";
 import { formatPeso } from "@/lib/money";
 import { cn } from "@/lib/utils";
@@ -17,6 +23,7 @@ export default function MarketplaceShow({
   item: MarketplaceItem;
   isOwnItem: boolean;
 }) {
+  const { auth } = usePage().props;
   const images = item.images ?? [];
   const [selected, setSelected] = useState(0);
 
@@ -105,10 +112,71 @@ export default function MarketplaceShow({
             <p className="whitespace-pre-line">{item.description}</p>
           )}
 
-          {isOwnItem && (
+          {isOwnItem ? (
             <p className="text-sm text-muted-foreground">
               This is your item. Owners cannot book their own items.
             </p>
+          ) : !auth.user ? (
+            <Button asChild>
+              <Link href={login()}>Log in to book</Link>
+            </Button>
+          ) : (
+            <Form
+              {...BookingController.store.form(item.id)}
+              className="space-y-4 border p-4"
+            >
+              {({ processing, errors }) => (
+                <>
+                  <h3>Request these dates</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="grid gap-2">
+                      <Label htmlFor="start_date">Start date</Label>
+                      <Input
+                        id="start_date"
+                        name="start_date"
+                        type="date"
+                        required
+                        className="font-mono"
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="end_date">End date</Label>
+                      <Input
+                        id="end_date"
+                        name="end_date"
+                        type="date"
+                        required
+                        className="font-mono"
+                      />
+                    </div>
+                  </div>
+                  {!auth.user.phone && (
+                    <div className="grid gap-2">
+                      <Label htmlFor="phone">Phone number</Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        required
+                        placeholder="09171234567"
+                        className="font-mono"
+                      />
+                      <p className="text-sm text-muted-foreground">
+                        The owner uses this to arrange the meetup.
+                      </p>
+                      <InputError message={errors.phone} />
+                    </div>
+                  )}
+                  <InputError message={errors.start_date ?? errors.end_date} />
+                  <Button
+                    disabled={processing}
+                    className="outline-[1.5px] outline-offset-3 outline-primary outline-solid"
+                  >
+                    Send booking request
+                  </Button>
+                </>
+              )}
+            </Form>
           )}
         </div>
       </div>

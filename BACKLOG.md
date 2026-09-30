@@ -56,7 +56,7 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 - [x] Item create and edit form
 - [x] Photo upload, reorder, delete
 - [x] Units manager with suggested labels
-- [ ] Delete item only if never booked, else pause
+- [x] Delete item only if never booked, else pause
 - [x] Retire units
 
 ## Phase 5: Marketplace
@@ -67,16 +67,16 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 ## Phase 6: Bookings
 
-- [ ] `BookingStatus` enum with allowed transitions
-- [ ] `bookings` migration, model, factory
-- [ ] Availability check for a unit and date range
-- [ ] Request booking with automatic unit assignment
-- [ ] Phone prompt for renters without one
-- [ ] Approve with recheck and unit swap
-- [ ] Reject and cancel
-- [ ] Mark active and mark returned
-- [ ] Renter: my bookings and booking detail with days late
-- [ ] Owner: booking requests page and dashboard
+- [x] `BookingStatus` enum with allowed transitions
+- [x] `bookings` migration, model, factory
+- [x] Availability check for a unit and date range
+- [x] Request booking with automatic unit assignment
+- [x] Phone prompt for renters without one
+- [x] Approve with recheck and unit swap
+- [x] Reject and cancel
+- [x] Mark active and mark returned
+- [x] Renter: my bookings and booking detail with days late
+- [x] Owner: booking requests page and dashboard
 
 ## Phase 7: Admin
 

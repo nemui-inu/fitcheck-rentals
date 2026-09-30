@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Factories\OwnerProfileFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,5 +42,15 @@ class OwnerProfile extends Model
     public function units(): HasManyThrough
     {
         return $this->hasManyThrough(ItemUnit::class, Item::class);
+    }
+
+    /**
+     * Bookings on any unit of this owner's items.
+     *
+     * @return Builder<Booking>
+     */
+    public function bookings(): Builder
+    {
+        return Booking::query()->whereRelation('unit.item', 'owner_profile_id', $this->id);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\Owner;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,11 @@ Route::get('marketplace/{item}', [MarketplaceController::class, 'show'])->name('
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+    Route::post('marketplace/{item}/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    Route::patch('bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
 
     Route::get('owner/setup', [Owner\OwnerProfileController::class, 'create'])->name('owner.setup');
     Route::post('owner/setup', [Owner\OwnerProfileController::class, 'store'])->name('owner.setup.store');
@@ -27,6 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('items/{item}/units', [Owner\ItemUnitController::class, 'store'])->name('items.units.store');
         Route::put('items/{item}/units/{unit}', [Owner\ItemUnitController::class, 'update'])->name('items.units.update');
         Route::delete('items/{item}/units/{unit}', [Owner\ItemUnitController::class, 'destroy'])->name('items.units.destroy');
+
+        Route::get('bookings', [Owner\BookingController::class, 'index'])->name('bookings.index');
+        Route::patch('bookings/{booking}', [Owner\BookingController::class, 'update'])->name('bookings.update');
     });
 
     Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {

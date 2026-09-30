@@ -64,3 +64,31 @@ export type OwnerProfile = {
   shop_name: string;
   meetup_area: string;
 };
+
+export type BookingStatus =
+  | "pending"
+  | "approved"
+  | "active"
+  | "returned"
+  | "rejected"
+  | "cancelled";
+
+export type Booking = {
+  id: number;
+  reference: string;
+  start_date: string;
+  end_date: string;
+  total: number;
+  deposit: number;
+  status: BookingStatus;
+  returned_at: string | null;
+  created_at: string;
+  unit: ItemUnit & {
+    item: Item & {
+      owner_profile?: OwnerProfile & {
+        user?: { id: number; name: string; phone: string | null };
+      };
+    };
+  };
+  renter?: { id: number; name: string; phone: string | null };
+};

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
@@ -102,5 +103,11 @@ class Item extends Model
     public function units(): HasMany
     {
         return $this->hasMany(ItemUnit::class);
+    }
+
+    /** @return HasManyThrough<Booking, ItemUnit, $this> */
+    public function bookings(): HasManyThrough
+    {
+        return $this->hasManyThrough(Booking::class, ItemUnit::class);
     }
 }

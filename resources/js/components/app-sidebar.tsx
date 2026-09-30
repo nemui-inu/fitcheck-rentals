@@ -1,5 +1,13 @@
 import { Link, usePage } from "@inertiajs/react";
-import { LayoutGrid, Search, Shirt, Store, Tags } from "lucide-react";
+import {
+  CalendarCheck,
+  CalendarDays,
+  LayoutGrid,
+  Search,
+  Shirt,
+  Store,
+  Tags,
+} from "lucide-react";
 import AppLogo from "@/components/app-logo";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -20,6 +28,8 @@ import {
 } from "@/routes/owner";
 import { index as ownerItems } from "@/routes/owner/items";
 import { index as marketplace } from "@/routes/marketplace";
+import { index as myBookings } from "@/routes/bookings";
+import { index as ownerBookings } from "@/routes/owner/bookings";
 import type { NavItem } from "@/types";
 
 const rentNavItems: NavItem[] = [
@@ -27,6 +37,11 @@ const rentNavItems: NavItem[] = [
     title: "Marketplace",
     href: marketplace(),
     icon: Search,
+  },
+  {
+    title: "My bookings",
+    href: myBookings(),
+    icon: CalendarDays,
   },
   {
     title: "Dashboard",
@@ -45,6 +60,11 @@ const ownerNavItems: NavItem[] = [
     title: "My items",
     href: ownerItems(),
     icon: Shirt,
+  },
+  {
+    title: "Booking requests",
+    href: ownerBookings(),
+    icon: CalendarCheck,
   },
 ];
 

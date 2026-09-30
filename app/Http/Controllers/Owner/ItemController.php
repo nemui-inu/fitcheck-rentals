@@ -68,6 +68,12 @@ class ItemController extends Controller
     {
         $item = $request->user()->ownerProfile->items()->findOrFail($item);
 
+        if ($item->bookings()->exists()) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('This item has bookings, so it cannot be deleted. Pause it instead.')]);
+
+            return back();
+        }
+
         $deleteItem($item);
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Item deleted.')]);

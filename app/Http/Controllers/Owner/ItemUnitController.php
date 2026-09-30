@@ -45,6 +45,12 @@ class ItemUnitController extends Controller
         $item = $request->user()->ownerProfile->items()->findOrFail($item);
         $unit = $item->units()->findOrFail($unit);
 
+        if ($unit->bookings()->exists()) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('This unit has bookings, so it cannot be deleted. Retire it instead.')]);
+
+            return back();
+        }
+
         $unit->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Unit deleted.')]);
