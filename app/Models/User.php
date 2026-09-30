@@ -68,6 +68,12 @@ class User extends Authenticatable
         return $this->hasMany(Booking::class, 'renter_id');
     }
 
+    /** @return HasMany<SocialAccount, $this> */
+    public function socialAccounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === Role::Admin;

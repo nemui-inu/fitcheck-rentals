@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\Owner;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
+
+Route::get('auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
+Route::get('auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
 Route::get('marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
 Route::get('marketplace/{item}', [MarketplaceController::class, 'show'])->name('marketplace.show');

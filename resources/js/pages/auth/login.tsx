@@ -1,6 +1,7 @@
 import { Form, Head } from "@inertiajs/react";
 import InputError from "@/components/input-error";
 import PasswordInput from "@/components/password-input";
+import SocialButtons from "@/components/social-buttons";
 import TextLink from "@/components/text-link";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -101,6 +102,8 @@ export default function Login({ status, canResetPassword }: Props) {
           </>
         )}
       </Form>
+
+      <SocialButtons />
 
       {status && (
         <div className="mb-4 text-center text-sm font-medium text-green-600">

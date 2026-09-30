@@ -31,14 +31,14 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 ## Phase 2: Social login
 
-- [ ] Install Socialite, configure Google and Facebook in `.env.example`
-- [ ] `SocialProvider` enum, `social_accounts` migration and model
-- [ ] Redirect and callback routes
-- [ ] Callback rules: log in, create, or refuse when email exists
-- [ ] Connected accounts in Settings: link and unlink
-- [ ] Block unlinking the last login method
-- [ ] Set password for social only users
-- [ ] Tests with a mocked Socialite user
+- [x] Install Socialite, configure Google and Facebook in `.env.example`
+- [x] `SocialProvider` enum, `social_accounts` migration and model
+- [x] Redirect and callback routes
+- [x] Callback rules: log in, create, or refuse when email exists
+- [x] Connected accounts in Settings: link and unlink
+- [x] Block unlinking the last login method
+- [x] Set password for social only users
+- [x] Tests with a mocked Socialite user
 
 ## Phase 3: Categories
 
