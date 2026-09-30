@@ -36,6 +36,8 @@ class User extends Authenticatable
 
     protected $attributes = [
         'role' => Role::User->value,
+        'phone' => null,
+        'suspended_at' => null,
     ];
 
     /**
@@ -67,5 +69,10 @@ class User extends Authenticatable
     public function isOwner(): bool
     {
         return $this->ownerProfile()->exists();
+    }
+
+    public function isSuspended(): bool
+    {
+        return $this->suspended_at !== null;
     }
 }

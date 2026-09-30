@@ -7,7 +7,7 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
-    Route::middleware(['web', 'auth', 'owner'])
+    Route::middleware(['web', 'auth', 'admin'])
         ->get('/_test/admin', fn () => 'ok');
 });
 
@@ -26,5 +26,5 @@ test('admins get through', function () {
 
     actingAs($admin)
         ->get('/_test/admin')
-        ->assertForbidden();
+        ->assertOk();
 });

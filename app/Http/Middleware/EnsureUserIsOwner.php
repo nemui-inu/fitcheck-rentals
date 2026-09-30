@@ -9,13 +9,15 @@ use Symfony\Component\HttpFoundation\Response;
 class EnsureUserIsOwner
 {
     /**
-     * Handle an incoming request.
+     * Send users without an owner profile to the setup page.
      *
      * @param  Closure(Request): Response  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
-        abort_unless($request->user()?->isOwner(), 403);
+        if (! $request->user()?->isOwner()) {
+            return redirect()->route('owner.setup');
+        }
 
         return $next($request);
     }

@@ -23,11 +23,11 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 - [x] Migration: `role`, `phone`, `suspended_at` on users, `password` nullable
 - [x] `owner_profiles` migration and model
 - [x] `owner` and `admin` middleware
-- [ ] Share `isOwner` and `isAdmin` through Inertia
-- [ ] Block suspended users at login
-- [ ] Owner profile setup page (requires phone)
-- [ ] Navbar mode switch
-- [ ] Seed an admin
+- [x] Share `isOwner` and `isAdmin` through Inertia
+- [x] Block suspended users at login
+- [x] Owner profile setup page (requires phone)
+- [x] Navbar mode switch
+- [x] Seed an admin
 
 ## Phase 2: Social login
 
