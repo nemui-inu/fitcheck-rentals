@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ItemStatus;
+use Carbon\CarbonImmutable;
 use Database\Factories\ItemFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -26,11 +26,11 @@ use Illuminate\Support\Carbon;
  * @property int $daily_rate
  * @property int $deposit
  * @property ItemStatus $status
- * @property Carbon|null $taken_down_at
+ * @property CarbonImmutable|null $taken_down_at
  * @property int|null $taken_down_by
  * @property string|null $takedown_reason
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  */
 #[Fillable(['category_id', 'name', 'series', 'character', 'size', 'description'])]
 class Item extends Model

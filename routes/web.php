@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('items', Owner\ItemController::class)->except('show');
         Route::patch('items/{item}/status', Owner\ItemStatusController::class)->name('items.status');
+        Route::patch('items/{item}/resubmit', [Owner\ItemStatusController::class, 'resubmit'])->name('items.resubmit');
         Route::post('items/{item}/images', [Owner\ItemImageController::class, 'store'])->name('items.images.store');
         Route::patch('items/{item}/images/{image}', [Owner\ItemImageController::class, 'update'])->name('items.images.update');
         Route::delete('items/{item}/images/{image}', [Owner\ItemImageController::class, 'destroy'])->name('items.images.destroy');
@@ -40,6 +41,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('categories', Admin\CategoryController::class)->except('show');
+
+        Route::get('users', [Admin\UserController::class, 'index'])->name('users.index');
+        Route::patch('users/{user}/suspend', [Admin\UserController::class, 'suspend'])->name('users.suspend');
+        Route::patch('users/{user}/unsuspend', [Admin\UserController::class, 'unsuspend'])->name('users.unsuspend');
+
+        Route::get('items', [Admin\ItemReviewController::class, 'index'])->name('items.index');
+        Route::patch('items/{item}/take-down', [Admin\ItemReviewController::class, 'takeDown'])->name('items.take-down');
+        Route::patch('items/{item}/approve', [Admin\ItemReviewController::class, 'approve'])->name('items.approve');
     });
 });
 

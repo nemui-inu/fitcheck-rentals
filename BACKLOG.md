@@ -80,11 +80,11 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 ## Phase 7: Admin
 
-- [ ] Admin users list, suspend and unsuspend
+- [x] Admin users list, suspend and unsuspend
 - [x] Hide suspended owners' items from the marketplace
-- [ ] Take down an item with a reason
-- [ ] Owner resubmit flow to `pending_review`
-- [ ] Admin review queue: approve or take down again
+- [x] Take down an item with a reason
+- [x] Owner resubmit flow to `pending_review`
+- [x] Admin review queue: approve or take down again
 
 ## Phase 8: Finish
 

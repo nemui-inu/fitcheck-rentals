@@ -6,7 +6,9 @@ import {
   Search,
   Shirt,
   Store,
+  ShieldAlert,
   Tags,
+  Users,
 } from "lucide-react";
 import AppLogo from "@/components/app-logo";
 import { NavMain } from "@/components/nav-main";
@@ -30,6 +32,8 @@ import { index as ownerItems } from "@/routes/owner/items";
 import { index as marketplace } from "@/routes/marketplace";
 import { index as myBookings } from "@/routes/bookings";
 import { index as ownerBookings } from "@/routes/owner/bookings";
+import { index as adminItems } from "@/routes/admin/items";
+import { index as adminUsers } from "@/routes/admin/users";
 import type { NavItem } from "@/types";
 
 const rentNavItems: NavItem[] = [
@@ -81,6 +85,16 @@ const adminNavItems: NavItem[] = [
     title: "Categories",
     href: adminCategories(),
     icon: Tags,
+  },
+  {
+    title: "Users",
+    href: adminUsers(),
+    icon: Users,
+  },
+  {
+    title: "Item moderation",
+    href: adminItems(),
+    icon: ShieldAlert,
   },
 ];
 

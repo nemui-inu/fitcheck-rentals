@@ -43,4 +43,23 @@ class ItemStatusController extends Controller
 
         return back();
     }
+
+    /**
+     * Send a taken down item back to admins for review.
+     */
+    public function resubmit(Request $request, int $item): RedirectResponse
+    {
+        $item = $request->user()->ownerProfile->items()->findOrFail($item);
+
+        if (! $item->status->canTransitionTo(ItemStatus::PendingReview)) {
+            throw ValidationException::withMessages(['status' => __('Only taken down items can be resubmitted.')]);
+        }
+
+        $item->status = ItemStatus::PendingReview;
+        $item->save();
+
+        Inertia::flash('toast', ['type' => 'success', 'message' => __('Sent for review. An admin will approve it or explain what to fix.')]);
+
+        return back();
+    }
 }

@@ -2,7 +2,9 @@ import { Form, Head, router } from "@inertiajs/react";
 import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
 import ItemController from "@/actions/App/Http/Controllers/Owner/ItemController";
 import ItemImageController from "@/actions/App/Http/Controllers/Owner/ItemImageController";
-import ItemStatusController from "@/actions/App/Http/Controllers/Owner/ItemStatusController";
+import ItemStatusController, {
+  resubmit,
+} from "@/actions/App/Http/Controllers/Owner/ItemStatusController";
 import ItemUnitController from "@/actions/App/Http/Controllers/Owner/ItemUnitController";
 import Heading from "@/components/heading";
 import InputError from "@/components/input-error";
@@ -52,6 +54,16 @@ function StatusActions({ item }: { item: Item }) {
           Pause listing
         </Button>
       )}
+      {item.status === "taken_down" && (
+        <Button
+          size="sm"
+          onClick={() =>
+            router.patch(resubmit(item.id).url, {}, { preserveScroll: true })
+          }
+        >
+          Resubmit for review
+        </Button>
+      )}
     </div>
   );
 }
@@ -90,7 +102,8 @@ export default function ItemEdit({
               <span className="mr-2 bg-foreground px-1.5 py-0.5 font-mono text-xs text-background">
                 ERROR
               </span>
-              Taken down: {item.takedown_reason}
+              Taken down: {item.takedown_reason}. Fix the item, then resubmit it
+              for review.
             </p>
           )}
         </div>
