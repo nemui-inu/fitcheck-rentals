@@ -44,20 +44,20 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 - [x] `categories` migration, model, factory
 - [x] Admin categories CRUD pages
-- [ ] Deactivate instead of delete when in use
+- [x] Deactivate instead of delete when in use
 - [x] Seed the five default categories
 
 ## Phase 4: Items
 
-- [ ] `ItemStatus`, `UnitCondition`, `UnitStatus` enums
-- [ ] `items`, `item_images`, `item_units` migrations, models, factories
-- [ ] Item policy and owner scoped queries
-- [ ] Owner items list
-- [ ] Item create and edit form
-- [ ] Photo upload, reorder, delete
-- [ ] Units manager with suggested labels
+- [x] `ItemStatus`, `UnitCondition`, `UnitStatus` enums
+- [x] `items`, `item_images`, `item_units` migrations, models, factories
+- [x] Item policy and owner scoped queries
+- [x] Owner items list
+- [x] Item create and edit form
+- [x] Photo upload, reorder, delete
+- [x] Units manager with suggested labels
 - [ ] Delete item only if never booked, else pause
-- [ ] Retire units
+- [x] Retire units
 
 ## Phase 5: Marketplace
 

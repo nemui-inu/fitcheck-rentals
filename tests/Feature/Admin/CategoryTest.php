@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Item;
 use App\Models\User;
 
 use function Pest\Laravel\actingAs;
@@ -64,4 +65,15 @@ test('admins can delete an unused category', function () {
         ->assertRedirect(route('admin.categories.index'));
 
     expect(Category::count())->toBe(0);
+});
+
+test('categories in use are kept', function () {
+    $category = Category::factory()->create();
+    Item::factory()->for($category)->create();
+
+    actingAs($this->admin)
+        ->delete(route('admin.categories.destroy', $category))
+        ->assertRedirect(route('admin.categories.index'));
+
+    expect($category->fresh())->not->toBeNull();
 });

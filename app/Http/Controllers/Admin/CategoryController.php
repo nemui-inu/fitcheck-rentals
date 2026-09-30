@@ -46,8 +46,17 @@ class CategoryController extends Controller
         return to_route('admin.categories.index');
     }
 
+    /**
+     * Categories used by any item are kept. Deactivate them instead.
+     */
     public function destroy(Category $category): RedirectResponse
     {
+        if ($category->items()->exists()) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('Items still use this category. Deactivate it instead.')]);
+
+            return to_route('admin.categories.index');
+        }
+
         $category->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Category deleted.')]);
