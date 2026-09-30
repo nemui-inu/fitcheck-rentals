@@ -5,10 +5,10 @@ namespace App\Models;
 use App\Enums\BookingStatus;
 use Carbon\CarbonImmutable;
 use Database\Factories\BookingFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -29,16 +29,21 @@ class Booking extends Model
     /** @use HasFactory<BookingFactory> */
     use HasFactory;
 
+    use HasUlids;
+
     protected $attributes = [
         'status' => BookingStatus::Pending->value,
         'returned_at' => null,
     ];
 
-    protected static function booted(): void
+    /**
+     * Fill the ULID reference on insert. The primary key stays an integer.
+     *
+     * @return list<string>
+     */
+    public function uniqueIds(): array
     {
-        static::creating(function (Booking $booking) {
-            $booking->reference ??= (string) Str::ulid();
-        });
+        return ['reference'];
     }
 
     /**

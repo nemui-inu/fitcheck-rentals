@@ -88,7 +88,7 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 ## Phase 8: Finish
 
-- [ ] Seeders covering every status
-- [ ] Landing page
-- [ ] Em dash check passes
-- [ ] `composer ci:check` passes
+- [x] Seeders covering every status
+- [x] Landing page
+- [x] Em dash check passes
+- [x] `composer ci:check` passes
