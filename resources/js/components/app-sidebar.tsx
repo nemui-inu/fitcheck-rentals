@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
-import { LayoutGrid, Shirt, Store, Tags } from "lucide-react";
+import { LayoutGrid, Search, Shirt, Store, Tags } from "lucide-react";
 import AppLogo from "@/components/app-logo";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -19,9 +19,15 @@ import {
   setup as ownerSetup,
 } from "@/routes/owner";
 import { index as ownerItems } from "@/routes/owner/items";
+import { index as marketplace } from "@/routes/marketplace";
 import type { NavItem } from "@/types";
 
 const rentNavItems: NavItem[] = [
+  {
+    title: "Marketplace",
+    href: marketplace(),
+    icon: Search,
+  },
   {
     title: "Dashboard",
     href: dashboard(),

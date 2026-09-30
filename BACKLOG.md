@@ -61,9 +61,9 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 ## Phase 5: Marketplace
 
-- [ ] Marketplace page, active items only, paginated
-- [ ] Search, category, size, and price filters in the query string
-- [ ] Item detail page with gallery
+- [x] Marketplace page, active items only, paginated
+- [x] Search, category, size, and price filters in the query string
+- [x] Item detail page with gallery
 
 ## Phase 6: Bookings
 
@@ -81,7 +81,7 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 ## Phase 7: Admin
 
 - [ ] Admin users list, suspend and unsuspend
-- [ ] Hide suspended owners' items from the marketplace
+- [x] Hide suspended owners' items from the marketplace
 - [ ] Take down an item with a reason
 - [ ] Owner resubmit flow to `pending_review`
 - [ ] Admin review queue: approve or take down again

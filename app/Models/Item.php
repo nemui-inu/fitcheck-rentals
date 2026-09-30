@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ItemStatus;
 use Database\Factories\ItemFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,6 +61,17 @@ class Item extends Model
             'deposit' => 'integer',
             'taken_down_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Items renters can see: active, from owners who are not suspended.
+     *
+     * @param  Builder<Item>  $query
+     */
+    public function scopeListed(Builder $query): void
+    {
+        $query->where('status', ItemStatus::Active)
+            ->whereHas('ownerProfile.user', fn (Builder $user) => $user->whereNull('suspended_at'));
     }
 
     /** @return BelongsTo<OwnerProfile, $this> */

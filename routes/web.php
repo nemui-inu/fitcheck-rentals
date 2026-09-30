@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\Owner;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
+
+Route::get('marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+Route::get('marketplace/{item}', [MarketplaceController::class, 'show'])->name('marketplace.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');

@@ -49,3 +49,18 @@ export type Item = {
   units?: ItemUnit[];
   units_count?: number;
 };
+
+export type Paginated<T> = {
+  data: T[];
+  current_page: number;
+  last_page: number;
+  total: number;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+};
+
+export type OwnerProfile = {
+  id: number;
+  shop_name: string;
+  meetup_area: string;
+};
