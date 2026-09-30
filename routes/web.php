@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Owner;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('owner')->prefix('owner')->name('owner.')->group(function () {
         Route::get('/', Owner\DashboardController::class)->name('dashboard');
+    });
+
+    Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+        Route::resource('categories', Admin\CategoryController::class)->except('show');
     });
 });
 

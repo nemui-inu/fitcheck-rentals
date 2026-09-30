@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
-import { LayoutGrid, Store } from "lucide-react";
+import { LayoutGrid, Store, Tags } from "lucide-react";
 import AppLogo from "@/components/app-logo";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { dashboard } from "@/routes";
+import { index as adminCategories } from "@/routes/admin/categories";
 import {
   dashboard as ownerDashboard,
   setup as ownerSetup,
@@ -43,7 +44,13 @@ const becomeOwnerNavItems: NavItem[] = [
   },
 ];
 
-const adminNavItems: NavItem[] = [];
+const adminNavItems: NavItem[] = [
+  {
+    title: "Categories",
+    href: adminCategories(),
+    icon: Tags,
+  },
+];
 
 export function AppSidebar() {
   const { isOwner, isAdmin } = usePage().props;

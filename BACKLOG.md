@@ -42,10 +42,10 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 
 ## Phase 3: Categories
 
-- [ ] `categories` migration, model, factory
-- [ ] Admin categories CRUD pages
+- [x] `categories` migration, model, factory
+- [x] Admin categories CRUD pages
 - [ ] Deactivate instead of delete when in use
-- [ ] Seed the five default categories
+- [x] Seed the five default categories
 
 ## Phase 4: Items
 
