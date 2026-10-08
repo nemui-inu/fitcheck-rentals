@@ -1,0 +1,412 @@
+FitCheck Rentals demo script
+============================
+
+Three presenters, ten features, under ten minutes.
+Timeboxes add up to 9:40, which leaves about 20 seconds of buffer.
+If a block runs long, trim its spoken part, never the demo action.
+
+Run of show
+-----------
+
+  0:25  Opening                       presenter 1
+  0:55  A1 Marketplace and filters    presenter 1   running 1:20
+  0:35  A2 Item detail                presenter 1   running 1:55
+  1:05  A3 Booking request            presenter 1   running 3:00
+  1:15  B1 Owner shop and items       presenter 2   running 4:15
+  1:10  B2 Approve and close out      presenter 2   running 5:25
+  1:00  C1 Moderation loop            presenter 3   running 6:25
+  0:40  C2 Suspension                 presenter 3   running 7:05
+  0:30  C3 Categories guard           presenter 3   running 7:35
+  0:55  C4 Google login, live         presenter 3   running 8:30
+  0:55  C5 Public API                 presenter 3   running 9:25
+  0:15  Closing                       presenter 1   running 9:40
+
+Blocks can move between people if you prefer. The handoff lines are
+already written into the segments.
+
+How to read each block
+----------------------
+
+  DEMO   what to click, in order
+  SPEAK  verbatim lines, say them as written or close to it
+  CODE   the underlying code, one to three sentences, path included
+
+
+Prep, before anyone arrives (not spoken)
+----------------------------------------
+
+  1. composer run dev
+     Starts Docker, Laravel, and Vite in one command.
+
+  2. php artisan migrate:fresh --seed
+     Resets demo data to a clean, fully seeded state. Run this before
+     the audience arrives, never during the demo.
+
+  3. php artisan storage:link
+     Once per machine. Photos do not load in the browser without it.
+
+  4. php artisan test --compact
+     Confirm the suite is green and note the current count for the
+     closing (216 tests the last time it was checked).
+
+  5. Open these tabs:
+       /marketplace          stays open for the whole demo
+       /login                for the Google login segment
+       README.md at the API section, for the curl examples
+       a terminal window
+
+  6. Demo accounts, all with password "password":
+       renter@fitcheck.test   presenter 1
+       owner@fitcheck.test    presenter 2, owns the Wig Closet items
+       both@fitcheck.test     owns Prop Forge items, rents too
+       admin@fitcheck.test    presenter 3
+     The seeder ships bookings in every status, one item in
+     pending_review (Metal chain scythe), and one suspended user.
+
+  7. Google login check, before the demo:
+       .env has GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
+       the Google console allows the redirect
+       http://localhost:8000/auth/google/callback
+     Have a Google account that can reach the consent screen ready in
+     the browser presenter 3 will use.
+
+  Reset after a messy run: php artisan migrate:fresh --seed
+
+
+Opening  [0:25]  presenter 1
+----------------------------------------------
+
+DEMO
+1. Stay on the landing or marketplace page. Nothing to click.
+
+SPEAK
+FitCheck Rentals is a cosplay rental marketplace. Owners list costumes,
+wigs, and props with photos and real physical copies. Renters book a
+copy for a date range and pick it up at a meetup. Admins keep it clean:
+users, categories, and item moderation. Everything you will see is real
+CRUD on MySQL, built with Laravel, Inertia, React, and TypeScript, and
+it is covered by a test suite. We are three presenters: I take the
+renter side, [presenter 2] takes the owner side, and [presenter 3]
+takes admin, login, and the API.
+
+CODE
+Say only if asked: the stack lives in PROJECT.md, and every table in
+the schema has a screen that does create, read, update, or delete on
+real data.
+
+
+A1. Marketplace and filters  [0:55]  running 1:20, presenter 1
+--------------------------------------------------------------
+
+DEMO
+1. Log out if you are logged in, or use a fresh window. The marketplace
+   is public.
+2. Search "wig".
+3. Filter by category (Wig) and set a minimum price.
+4. Point at the URL: the filters are in the query string.
+5. Scroll to pagination and mention it.
+6. Open one filtered result, then move on.
+
+SPEAK
+This is the marketplace. Only active items appear here. Search covers
+name, series, and character, and the category, size, and price filters
+sit in the query string, so a filtered view is just a URL you can share.
+Two rules hide things automatically: drafts are never public, and items
+from suspended owners disappear the moment they are suspended. We will
+show that live in the admin segment.
+
+CODE
+One query builder, app/Support/MarketplaceQuery.php, serves both this
+page and the JSON API, so the filters can never drift apart. The hiding
+rule is Item::scopeListed in app/Models/Item.php, and every marketplace
+query starts from it.
+
+
+A2. Item detail and gallery  [0:35]  running 1:55, presenter 1
+--------------------------------------------------------------
+
+DEMO
+1. Open the Frieren twin tail wig.
+2. Click through the gallery if there are multiple photos.
+3. Point at the daily rate, the deposit, and the unit labels or free
+   copy count.
+
+SPEAK
+The detail page shows the gallery, the rate, the deposit, and how many
+physical copies exist. The cover is simply the photo with the lowest
+sort order, so reordering photos changes what the marketplace shows. You
+also get the owner shop and the meetup area, so renters know where they
+are picking up.
+
+CODE
+Item::coverImage() in app/Models/Item.php is that lowest sort order.
+Photos are files on the public disk under items and the database stores
+only the path, never a URL, so storage can move without a migration.
+
+
+A3. Booking request  [1:05]  running 3:00, presenter 1
+------------------------------------------------------
+
+DEMO
+1. Log in as renter@fitcheck.test.
+2. On the item page, choose a date range a few days out and request the
+   booking.
+3. If the range is fully booked the form says so; pick another range.
+4. Land on My bookings and show the new request in pending status.
+5. Hand the pending request over verbally to presenter 2.
+
+SPEAK
+A renter picks a date range and requests the item. The server picks a
+copy that is free for those dates and assigns it to the booking, so the
+renter never chooses a unit. If every copy is taken, it refuses with
+"Those dates are fully booked. Pick another range." The total is day
+count times the daily rate, and the deposit is copied from the item. If
+the renter had no phone number on file, the form would ask for one
+first, because meetup contact needs it. I am leaving this request
+pending, and [presenter 2] will approve it as the owner.
+
+CODE
+app/Actions/RequestBooking.php runs the check, and
+app/Support/Availability.php defines free: a copy with status active
+and no approved or active booking overlapping the range. Pending
+requests never block anyone. Day math is app/Support/RentalDays.php,
+inclusive and in Asia/Manila. Money is stored as integer centavos, so
+25000 means 250 pesos, and it is converted exactly once, in the form
+request.
+
+
+Handoff
+-------
+SPEAK: That is the renter side. [presenter 2], the shop is yours.
+
+
+B1. Owner shop and items  [1:15]  running 4:15, presenter 2
+-----------------------------------------------------------
+
+DEMO
+1. Log in as owner@fitcheck.test.
+2. Show the shop tab: dashboard, items, bookings.
+3. Open the item form for an existing item: money fields, photos with
+   reorder, units with labels like WIG-003.
+4. Mention the delete button behavior without breaking demo data.
+
+SPEAK
+Owners get their own area. If a user has no shop profile yet, the
+middleware sends them to setup, which requires a shop name, a meetup
+area, and a phone number. This is the item form. Rates are typed in
+pesos and stored as centavos. Photos can be reordered, and the lowest
+one becomes the cover you saw earlier. Each physical copy gets a label
+like WIG-003, suggested automatically from the category code, and unique
+per shop. One rule worth showing: an item that has bookings cannot be
+deleted, only paused, and a unit with bookings is retired, never
+deleted. History is kept, always.
+
+CODE
+The guard is app/Http/Middleware/EnsureUserIsOwner.php, and owner
+queries resolve through the relation, ownerProfile items, so nobody can
+touch another shop by guessing an id. Money conversion lives in
+app/Http/Requests/Owner/ItemRequest.php and controllers forceFill it,
+money columns are never mass assigned. Labels come from
+app/Support/UnitLabel.php, photos are written after the database
+transaction commits, and the delete or pause rule sits in
+app/Actions/DeleteItem.php with a restrictOnDelete foreign key as the
+backstop.
+
+
+B2. Approve and close out the booking  [1:10]  running 5:25, presenter 2
+------------------------------------------------------------------------
+
+DEMO
+1. Open Bookings. The pending request from presenter 1 is waiting
+   (the seeder also has a pending request on the Frieren mage robe set).
+2. Approve it. Show the status flip to approved.
+3. Mark it active (pickup), then mark it returned.
+4. Mention the days late display if a seeded booking shows one.
+
+SPEAK
+Here is the request from the renter segment. Approving it is not a
+simple status update: the server opens a transaction, locks the copies
+of that item, and rechecks the copy it assigned. If another booking
+took it while we were talking, it silently swaps to another copy that
+is free; if no copy is free, the approval fails and the request stays
+pending. Then pickup marks the booking active, and return marks it
+returned and stamps the time. Every one of those moves is checked
+against a transition table that says who may move what from where, so a
+renter can never approve their own booking.
+
+CODE
+app/Actions/ApproveBooking.php is the transaction, the lock, and the
+recheck, using the same Availability helper the request used. The
+allowed moves live in app/Enums/BookingStatus.php:
+canTransitionTo takes the actor, owner or renter, and both endpoints
+share that one rule. Days late comes from RentalDays::late, and no fee
+is ever charged, this is a school project, not a payment system.
+
+
+Handoff
+-------
+SPEAK: Owner side done. [presenter 3], admin, login, and the API.
+
+
+C1. Moderation loop  [1:00]  running 6:25, presenter 3
+-------------------------------------------------------
+
+DEMO
+1. Log in as admin@fitcheck.test, open Admin, then the items queue.
+2. Take down an active item with a reason (the Frieren twin tail wig
+   works; its owner already had a turn).
+3. Switch to the marketplace tab and show it is gone.
+4. Back in the queue, approve the seeded pending_review item, the Metal
+   chain scythe.
+
+SPEAK
+Admins see items that need attention. Taking an item down requires a
+reason and removes it from the marketplace immediately, you just saw it
+disappear. The owner sees that reason, fixes the item, and resubmits,
+which puts it into pending review, and here the admin approves it back
+to active or takes it down again. The status enum owns this whole loop,
+so the app physically cannot skip a step.
+
+CODE
+The action is app/Actions/TakeDownItem.php, which writes the reason,
+the admin who did it, and the timestamp; the queue is
+app/Http/Controllers/Admin/ItemReviewController.php. The full transition
+table is app/Enums/ItemStatus.php, and ownerCanTransitionTo narrows it
+to what owners may do: publish and pause. Takedowns and approvals stay
+admin only. The marketplace hides it all through the same scopeListed
+query rule from the first segment.
+
+
+C2. Suspension  [0:40]  running 7:05, presenter 3
+--------------------------------------------------
+
+DEMO
+1. Open Admin, Users. Show the already suspended seeded user.
+2. Suspend owner@fitcheck.test.
+3. Switch to the marketplace tab, refresh, and show her wigs are gone.
+4. Do not log in as her; just state the rule.
+
+SPEAK
+Suspending a user sets one timestamp and everything follows from it.
+They cannot log in, password or Google. If their session is already
+open, the next request logs them out. Their items leave the marketplace
+while their bookings stay exactly as they are, because a suspension is
+not a cancellation. Watch the marketplace: her items just left.
+
+CODE
+Password login checks suspended_at in
+app/Providers/FortifyServiceProvider.php, social login checks it in
+SocialiteController, and app/Http/Middleware/LogOutSuspendedUsers.php
+ends open sessions. The marketplace part is the same scopeListed rule
+again, one query reused by the site, the API, and the moderation queue.
+
+
+C3. Categories guard  [0:30]  running 7:35, presenter 3
+--------------------------------------------------------
+
+DEMO
+1. Open Admin, Categories.
+2. Try to delete the Costume category, which seeded items use.
+3. Show the refusal, then the deactivate switch instead.
+
+SPEAK
+Categories are plain admin CRUD, but with one guard: a category in use
+can only be deactivated, never deleted, so no item ever points at a row
+that no longer exists. Deactivated categories vanish from the item form
+while existing items keep theirs. The controller gives a friendly
+message, and the foreign key in the database is the backstop if
+anything gets around it.
+
+CODE
+app/Http/Controllers/Admin/CategoryController.php refuses the delete
+when items reference the row, and every foreign key with history uses
+restrictOnDelete. The app shows a clear error instead of a database
+exception, which is the rule everywhere: say what happened and what to
+do next.
+
+
+C4. Google login, live  [0:55]  running 8:30, presenter 3
+----------------------------------------------------------
+
+DEMO
+1. Log out, or use the fresh window sitting on /login.
+2. Click Continue with Google and approve the consent screen.
+3. You are in, with no password. Open Settings, Connected accounts.
+4. Show Google listed as linked.
+
+SPEAK
+Now the live one. Continue with Google, consent, and we are in. No
+password was ever set for this account. Three rules decide what the
+callback does: if this Google account is already linked, log that user
+in, which is what just happened; if the email is new, create a user
+with no password and link the provider; and if the email already has a
+password account, refuse and tell them to log in first, then connect in
+settings. That third rule is why nobody can take over an existing
+account through a login button. One more guard: you can never unlink
+your last login method, and a user with no password can set one right
+here on this page.
+
+CODE
+All three rules live in
+app/Http/Controllers/Auth/SocialiteController.php, which also refuses
+suspended users. The social_accounts table has a unique key per
+provider and per user, and users.password is nullable, which is how a
+passwordless account exists at all. Linking and unlinking go through
+app/Http/Controllers/Settings/ConnectedAccountController.php, which
+enforces the last method rule.
+
+If the consent screen stalls, say: Network and consent screens are
+outside our app; the callback rules are what matter, and they are
+covered by tests with a faked provider.
+
+
+C5. Public API  [0:55]  running 9:25, presenter 3
+--------------------------------------------------
+
+DEMO
+1. In the terminal, quote every URL, or the shell splits it at the
+   ampersand.
+2. curl "http://localhost:8000/api/v1/items?search=Frieren&category=WIG"
+3. Read one price aloud: daily_rate 25000, that is 250 pesos.
+4. curl "http://localhost:8000/api/v1/items/1/availability?start=<soon>&end=<soon+2>"
+   Use dates at least a few days ahead. Read available and free_units.
+5. curl http://localhost:8000/api/v1/categories
+
+SPEAK
+Last feature: a public, read-only JSON API at /api/v1, rate limited to
+sixty requests a minute per IP. It has the exact same filters as the
+marketplace page, because it runs the exact same query builder. Money
+comes back as integer centavos, so a consumer multiplies or divides
+once and never deals with floating point. The availability endpoint
+answers a concrete question: for this item and this date range, is
+anything free and how many. And drafts, taken down items, and suspended
+owners never appear here either.
+
+CODE
+routes/api.php wraps every route in throttle 60, one. The item index
+validates through IndexItemsRequest, filters through MarketplaceQuery,
+and serializes with ItemResource in app/Http/Resources, the same money
+and cover rules as the site. Availability reuses
+app/Support/Availability.php, so the API and the booking form can never
+disagree about what free means. Validation errors come back as 422
+JSON. Twenty-four tests cover this in tests/Feature/Api.
+
+
+Closing  [0:15]  running 9:40, presenter 1
+--------------------------------------------
+
+DEMO
+Nothing. Stay on any page.
+
+SPEAK
+That is the tour. Behind it: a green test suite, Pest feature tests for
+every flow we showed, static analysis and formatting checks, the same
+ones CI runs with one command. Documentation lives in the repo: README
+for setup and API, PROJECT for the rules, ARCHITECTURE for where every
+rule sits in the code, and diagrams with an ERD of the schema. Thanks,
+we are happy to take questions.
+
+CODE
+Only if asked: composer ci:check runs formatting, static analysis, and
+the full suite, and docs/DIAGRAMS.md renders the ERD, lifecycle, and
+sequence diagrams on GitHub.
