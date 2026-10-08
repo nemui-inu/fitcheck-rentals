@@ -4,6 +4,8 @@ GitHub renders these Mermaid blocks as diagrams. Rules behind them live in [`PRO
 
 ## Entity relationships
 
+Also available as a standalone file: [`erd.mmd`](erd.mmd).
+
 ```mermaid
 erDiagram
   USERS ||--o{ SOCIAL_ACCOUNTS : "signs in with"
@@ -18,6 +20,7 @@ erDiagram
 
   USERS {
     bigint id PK
+    string name
     string email
     string password "nullable"
     enum role "user or admin"
@@ -50,11 +53,13 @@ erDiagram
     string series
     string character
     string size
+    text description
     int daily_rate
     int deposit
     enum status
+    timestamp taken_down_at
     bigint taken_down_by FK
-    string takedown_reason
+    text takedown_reason
   }
   ITEM_IMAGES {
     bigint id PK

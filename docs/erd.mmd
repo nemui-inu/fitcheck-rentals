@@ -1,0 +1,79 @@
+erDiagram
+  USERS ||--o{ SOCIAL_ACCOUNTS : "signs in with"
+  USERS ||--o| OWNER_PROFILES : "opts into"
+  USERS ||--o{ BOOKINGS : rents
+  USERS ||--o{ ITEMS : moderates
+  OWNER_PROFILES ||--o{ ITEMS : owns
+  CATEGORIES ||--o{ ITEMS : groups
+  ITEMS ||--o{ ITEM_IMAGES : has
+  ITEMS ||--o{ ITEM_UNITS : "has copies"
+  ITEM_UNITS ||--o{ BOOKINGS : "reserved by"
+
+  USERS {
+    bigint id PK
+    string name
+    string email
+    string password "nullable"
+    enum role "user or admin"
+    string phone "nullable"
+    timestamp suspended_at
+  }
+  SOCIAL_ACCOUNTS {
+    bigint id PK
+    bigint user_id FK
+    enum provider "google or facebook"
+    string provider_user_id
+  }
+  OWNER_PROFILES {
+    bigint id PK
+    bigint user_id FK
+    string shop_name
+    string meetup_area
+  }
+  CATEGORIES {
+    bigint id PK
+    string name
+    string code "WIG"
+    boolean is_active
+  }
+  ITEMS {
+    bigint id PK
+    bigint owner_profile_id FK
+    bigint category_id FK
+    string name
+    string series
+    string character
+    string size
+    text description
+    int daily_rate
+    int deposit
+    enum status
+    timestamp taken_down_at
+    bigint taken_down_by FK
+    text takedown_reason
+  }
+  ITEM_IMAGES {
+    bigint id PK
+    bigint item_id FK
+    string path
+    int sort_order
+  }
+  ITEM_UNITS {
+    bigint id PK
+    bigint item_id FK
+    string label "WIG-001"
+    enum condition
+    enum status
+  }
+  BOOKINGS {
+    bigint id PK
+    string reference
+    bigint item_unit_id FK
+    bigint renter_id FK
+    date start_date
+    date end_date
+    int total
+    int deposit
+    enum status
+    timestamp returned_at
+  }
