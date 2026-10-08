@@ -92,3 +92,12 @@ Check off with `[x]`. Build in phase order. Full rules live in `PROJECT.md`.
 - [x] Landing page
 - [x] Em dash check passes
 - [x] `composer ci:check` passes
+
+## Phase 9: Public API
+
+- [x] Read-only routes under `/api/v1`, rate limited to 60 requests a minute
+- [x] `MarketplaceQuery` shared by the marketplace page and the API
+- [x] `ItemResource` and `CategoryResource`, money in centavos
+- [x] Availability endpoint reusing `Availability`
+- [x] Feature tests in `tests/Feature/Api`
+- [x] README curl examples, PROJECT, ARCHITECTURE, and COMMITS updated
