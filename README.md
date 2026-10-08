@@ -80,8 +80,8 @@ FACEBOOK_CLIENT_SECRET=
 
 Users link and unlink providers under Settings, Connected accounts. Set the redirect URLs in each provider's console to:
 
-- `http://127.0.0.1:8000/auth/google/callback`
-- `http://127.0.0.1:8000/auth/facebook/callback`
+- `http://localhost:8000/auth/google/callback`
+- `http://localhost:8000/auth/facebook/callback`
 
 ## Scripts
 
