@@ -189,4 +189,4 @@ composer ci:check                                       # what CI runs
 - **`--env=testing` does not mean the test database.** There is no `.env.testing`, so artisan commands with that flag hit the MySQL dev database. Only `php artisan test` switches to SQLite.
 - **Photos do not show in the browser.** Run `php artisan storage:link` once.
 - **Booking references.** `Booking` uses `HasUlids` with `uniqueIds()` returning `['reference']`, so the ULID is set on insert even when model events are off, as in the seeder. The primary key stays an integer.
-- **Social only users cannot delete their account.** The delete form asks for a password. They can set one under Connected accounts first.
+- **Account deletion is passwordless for social users.** The delete form asks for a password only when the user has one, see `ProfileDeleteRequest`. A guard refuses deletion when the user has an owner profile, bookings, or takedowns, and flashes an error instead.
