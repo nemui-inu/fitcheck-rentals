@@ -9,18 +9,21 @@ A map of the code for whoever maintains it next. It explains where things live a
 | Path                                   | What lives there                                                                                                                   |
 | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `routes/web.php`                       | Public, renter, `/owner`, and `/admin` routes, grouped by middleware                                                               |
+| `routes/api.php`                       | Public read-only JSON API under `/api/v1`, rate limited to 60 requests a minute                                                    |
 | `routes/settings.php`                  | Profile, security, appearance, and connected accounts                                                                              |
 | `app/Enums`                            | Every status and role. Status enums also hold their allowed transitions                                                            |
 | `app/Models`                           | Eloquent models. Relations, casts, `$attributes` defaults, and one scope each where needed                                         |
 | `app/Actions`                          | Anything with more than a couple of steps: `RequestBooking`, `ApproveBooking`, `ChangeBookingStatus`, `TakeDownItem`, `DeleteItem` |
 | `app/Actions/Fortify`                  | Starter kit registration and password reset                                                                                        |
-| `app/Support`                          | Stateless helpers: `RentalDays` (day math), `Availability` (free units), `UnitLabel` (`WIG-003`)                                   |
+| `app/Support`                          | Stateless helpers: `RentalDays` (day math), `Availability` (free units), `UnitLabel` (`WIG-003`), `MarketplaceQuery` (filters)     |
 | `app/Http/Controllers`                 | Renter side: `MarketplaceController`, `BookingController`                                                                          |
+| `app/Http/Controllers/Api`             | JSON endpoints: item list and detail, item availability, categories                                                                |
 | `app/Http/Controllers/Owner`           | Shop setup, dashboard, items, photos, units, item status, booking requests                                                         |
 | `app/Http/Controllers/Admin`           | Categories, users, item moderation                                                                                                 |
 | `app/Http/Controllers/Auth`            | `SocialiteController` for Google and Facebook                                                                                      |
 | `app/Http/Controllers/Settings`        | Starter kit settings plus `ConnectedAccountController`                                                                             |
 | `app/Http/Requests`                    | Form Requests. Money is converted to centavos here                                                                                 |
+| `app/Http/Resources`                   | JSON shapes for the API: `ItemResource`, `CategoryResource`                                                                        |
 | `app/Http/Middleware`                  | `owner`, `admin`, and `LogOutSuspendedUsers`                                                                                       |
 | `app/Providers/FortifyServiceProvider` | Password login, including the suspended check                                                                                      |
 | `database/seeders/DatabaseSeeder.php`  | Demo accounts, items in every status, bookings in every status                                                                     |
@@ -47,6 +50,7 @@ A map of the code for whoever maintains it next. It explains where things live a
 | `tests/Feature/Owner` | Items, photos, units                                              |
 | `tests/Feature/Admin` | Categories, moderation, admin middleware                          |
 | `tests/Feature/Auth`  | Starter kit auth plus social login                                |
+| `tests/Feature/Api`   | JSON API: listing filters, availability, categories               |
 
 ## How a request flows
 
@@ -61,6 +65,8 @@ Every write follows the same path. Booking approval is the fullest example.
 7. **Page.** `resources/js/components/owner/booking-actions.tsx` sent the request. Errors show under `errors.status`.
 
 Simpler writes skip the Action and do the work in the controller, as long as it stays a few lines.
+
+API requests never render a page. `GET /api/v1/items` validates with `IndexItemsRequest`, filters through `MarketplaceQuery`, and returns `ItemResource` JSON. Validation errors come back as 422 because `shouldRenderJsonWhen` in `bootstrap/app.php` already covers `api/*`.
 
 ## Domain rules in code
 
