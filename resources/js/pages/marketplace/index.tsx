@@ -42,8 +42,8 @@ export default function Marketplace({
     <>
       <Head title="Marketplace" />
 
-      <div className="space-y-6 px-4 py-6">
-        <header className="border-b-4 border-foreground pb-4">
+      <div className="space-y-4 px-4 py-6">
+        <header>
           <h1>
             Rent the fit<span className="text-primary">.</span>
           </h1>
@@ -54,7 +54,7 @@ export default function Marketplace({
 
         <form
           onSubmit={applyFilters}
-          className="grid gap-3 md:grid-cols-6"
+          className="flex gap-2"
         >
           <Input
             name="search"
@@ -108,13 +108,13 @@ export default function Marketplace({
             />
           </div>
           <div className="flex gap-2">
-            <Button className="flex-1">Apply filters</Button>
             <Button
-              variant="ghost"
+              variant="outline"
               asChild
             >
               <Link href={index()}>Clear</Link>
             </Button>
+            <Button className="flex-1">Apply filters</Button>
           </div>
         </form>
 

@@ -48,7 +48,6 @@ export default function ConnectedAccounts({
               </div>
               {provider.connected ? (
                 <Button
-                  size="sm"
                   variant="outline"
                   onClick={() =>
                     router.delete(
@@ -61,7 +60,6 @@ export default function ConnectedAccounts({
                 </Button>
               ) : (
                 <Button
-                  size="sm"
                   variant="outline"
                   asChild
                 >

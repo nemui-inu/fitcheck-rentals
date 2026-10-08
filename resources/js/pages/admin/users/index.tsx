@@ -111,7 +111,6 @@ export default function UsersIndex({
                 <td className="p-3 text-right">
                   {user.role !== "admin" && (
                     <Button
-                      size="sm"
                       variant="outline"
                       onClick={() => toggle(user)}
                     >

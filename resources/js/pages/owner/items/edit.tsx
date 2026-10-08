@@ -38,16 +38,12 @@ function StatusActions({ item }: { item: Item }) {
     <div className="flex flex-wrap items-center gap-3">
       <StatusBadge status={item.status} />
       {(item.status === "draft" || item.status === "paused") && (
-        <Button
-          size="sm"
-          onClick={() => setStatus("active")}
-        >
+        <Button onClick={() => setStatus("active")}>
           Publish to marketplace
         </Button>
       )}
       {item.status === "active" && (
         <Button
-          size="sm"
           variant="outline"
           onClick={() => setStatus("paused")}
         >
@@ -56,7 +52,6 @@ function StatusActions({ item }: { item: Item }) {
       )}
       {item.status === "taken_down" && (
         <Button
-          size="sm"
           onClick={() =>
             router.patch(resubmit(item.id).url, {}, { preserveScroll: true })
           }
@@ -284,7 +279,6 @@ export default function ItemEdit({
                           ))}
                         </select>
                         <Button
-                          size="sm"
                           variant="outline"
                           disabled={processing}
                         >
@@ -292,7 +286,6 @@ export default function ItemEdit({
                         </Button>
                         <Button
                           type="button"
-                          size="sm"
                           variant="ghost"
                           onClick={() =>
                             router.delete(
@@ -341,7 +334,6 @@ export default function ItemEdit({
                   ))}
                 </select>
                 <Button
-                  size="sm"
                   variant="outline"
                   disabled={processing}
                 >

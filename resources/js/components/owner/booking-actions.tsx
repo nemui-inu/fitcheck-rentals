@@ -26,7 +26,6 @@ export default function BookingActions({ booking }: { booking: Booking }) {
       {(actions[booking.status] ?? []).map((action) => (
         <Button
           key={action.to}
-          size="sm"
           variant={action.primary ? "default" : "outline"}
           onClick={() =>
             router.patch(

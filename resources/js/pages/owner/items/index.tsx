@@ -13,7 +13,7 @@ export default function ItemsIndex({ items }: { items: Item[] }) {
     <>
       <Head title="My items" />
 
-      <div className="space-y-6 px-4 py-6">
+      <div className="px-4 py-6">
         <div className="flex items-start justify-between gap-4">
           <Heading
             title="My items"
@@ -47,7 +47,10 @@ export default function ItemsIndex({ items }: { items: Item[] }) {
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate font-medium">{item.name}</p>
+                    <div className="flex items-center gap-2">
+                      <StatusBadge status={item.status} />
+                      <p className="truncate font-medium">{item.name}</p>
+                    </div>
                     <p className="text-sm text-muted-foreground">
                       {item.category?.name} · {item.units_count} units
                     </p>
@@ -55,7 +58,6 @@ export default function ItemsIndex({ items }: { items: Item[] }) {
                   <span className="font-mono text-sm">
                     {formatPeso(item.daily_rate)}/day
                   </span>
-                  <StatusBadge status={item.status} />
                 </Link>
               </li>
             ))}

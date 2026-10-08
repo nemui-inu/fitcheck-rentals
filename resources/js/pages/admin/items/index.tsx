@@ -103,7 +103,6 @@ export default function AdminItems({
                   <StatusBadge status={item.status} />
                   {item.status === "pending_review" && (
                     <Button
-                      size="sm"
                       onClick={() =>
                         router.patch(
                           ItemReviewController.approve(item.id).url,
@@ -132,7 +131,6 @@ export default function AdminItems({
                           className="h-8 max-w-md"
                         />
                         <Button
-                          size="sm"
                           variant="outline"
                           disabled={processing}
                         >

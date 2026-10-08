@@ -91,14 +91,12 @@ export default function Welcome() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button
-                  size="lg"
                   asChild
                   className="outline-[1.5px] outline-offset-3 outline-primary outline-solid"
                 >
                   <Link href={marketplace()}>Browse the marketplace</Link>
                 </Button>
                 <Button
-                  size="lg"
                   variant="outline"
                   asChild
                 >

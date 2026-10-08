@@ -15,10 +15,13 @@ export default function BookingRow({
     <div className="flex flex-wrap items-center gap-4 p-3">
       <div className="min-w-0 flex-1 space-y-1">
         <p className="font-medium">
-          {booking.unit.item.name}{" "}
-          <span className="font-mono text-xs text-muted-foreground">
-            {booking.unit.label}
-          </span>
+          <div className="flex items-center gap-2">
+            <StatusBadge status={booking.status} />
+            {booking.unit.item.name}{" "}
+            <span className="font-mono text-xs text-muted-foreground">
+              {booking.unit.label}
+            </span>
+          </div>
         </p>
         <p className="font-mono text-sm">
           {formatRange(booking.start_date, booking.end_date)} ·{" "}
@@ -33,7 +36,6 @@ export default function BookingRow({
           </p>
         )}
       </div>
-      <StatusBadge status={booking.status} />
       {children}
     </div>
   );

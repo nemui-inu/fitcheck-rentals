@@ -72,7 +72,6 @@ export default function CategoriesIndex({
                   <td className="space-x-2 p-3 text-right">
                     <Button
                       variant="outline"
-                      size="sm"
                       asChild
                     >
                       <Link href={CategoryController.edit(category.id)}>
@@ -81,7 +80,6 @@ export default function CategoriesIndex({
                     </Button>
                     <Button
                       variant="ghost"
-                      size="sm"
                       onClick={() => destroy(category)}
                     >
                       Delete
