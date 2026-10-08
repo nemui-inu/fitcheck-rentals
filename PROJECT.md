@@ -19,6 +19,7 @@ In scope:
 5. Marketplace browse and item detail
 6. Bookings: request, approve, reject, cancel, pick up, return
 7. Admin moderation: suspend users, take down items, review resubmissions
+8. Public read-only JSON API under `/api/v1`: items, categories, and availability
 
 Out of scope: payments, deposits handling beyond display, late fees, damage claims, maintenance records, booking history timeline, shipping, reviews, notifications, help page.
 

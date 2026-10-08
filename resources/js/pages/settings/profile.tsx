@@ -11,10 +11,11 @@ import type { Auth } from "@/types";
 
 type PageProps = {
   auth: Auth;
+  hasPassword: boolean;
 };
 
 export default function Profile() {
-  const { auth } = usePage<PageProps>().props;
+  const { auth, hasPassword } = usePage<PageProps>().props;
 
   return (
     <>
@@ -90,7 +91,7 @@ export default function Profile() {
         </Form>
       </div>
 
-      <DeleteUser />
+      <DeleteUser hasPassword={hasPassword} />
     </>
   );
 }

@@ -16,10 +16,10 @@ test('guests are sent to login', function () {
     get('/_test/owner')->assertRedirect(route('login'));
 });
 
-test('users without an owner profile are forbidden', function () {
+test('users without an owner profile are sent to setup', function () {
     actingAs(User::factory()->create())
         ->get('/_test/owner')
-        ->assertForbidden();
+        ->assertRedirect(route('owner.setup'));
 });
 
 test('owners get through', function () {

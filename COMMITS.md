@@ -44,6 +44,7 @@ Optional, but keep them consistent. Use these:
 | `items`        | Items, units, photos                           |
 | `listings`     | Listings and composition                       |
 | `marketplace`  | Browse, search, filters                        |
+| `api`          | Public JSON API routes and resources           |
 | `booking`      | Requests, approval, transitions, booking pages |
 | `availability` | `AvailabilityService` and calendar blocking    |
 | `payments`     | Checkout, mock gateway, payment records        |

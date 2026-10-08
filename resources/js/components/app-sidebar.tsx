@@ -1,7 +1,16 @@
-import { Link } from "@inertiajs/react";
-import { BookOpen, FolderGit2, LayoutGrid } from "lucide-react";
+import { Link, usePage } from "@inertiajs/react";
+import {
+  CalendarCheck,
+  CalendarDays,
+  LayoutGrid,
+  Search,
+  Shirt,
+  Store,
+  ShieldAlert,
+  Tags,
+  Users,
+} from "lucide-react";
 import AppLogo from "@/components/app-logo";
-import { NavFooter } from "@/components/nav-footer";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
 import {
@@ -14,9 +23,30 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { dashboard } from "@/routes";
+import { index as adminCategories } from "@/routes/admin/categories";
+import {
+  dashboard as ownerDashboard,
+  setup as ownerSetup,
+} from "@/routes/owner";
+import { index as ownerItems } from "@/routes/owner/items";
+import { index as marketplace } from "@/routes/marketplace";
+import { index as myBookings } from "@/routes/bookings";
+import { index as ownerBookings } from "@/routes/owner/bookings";
+import { index as adminItems } from "@/routes/admin/items";
+import { index as adminUsers } from "@/routes/admin/users";
 import type { NavItem } from "@/types";
 
-const mainNavItems: NavItem[] = [
+const rentNavItems: NavItem[] = [
+  {
+    title: "Marketplace",
+    href: marketplace(),
+    icon: Search,
+  },
+  {
+    title: "My bookings",
+    href: myBookings(),
+    icon: CalendarDays,
+  },
   {
     title: "Dashboard",
     href: dashboard(),
@@ -24,20 +54,53 @@ const mainNavItems: NavItem[] = [
   },
 ];
 
-const footerNavItems: NavItem[] = [
+const ownerNavItems: NavItem[] = [
   {
-    title: "Repository",
-    href: "https://github.com/laravel/react-starter-kit",
-    icon: FolderGit2,
+    title: "Shop dashboard",
+    href: ownerDashboard(),
+    icon: Store,
   },
   {
-    title: "Documentation",
-    href: "https://laravel.com/docs/starter-kits#react",
-    icon: BookOpen,
+    title: "My items",
+    href: ownerItems(),
+    icon: Shirt,
+  },
+  {
+    title: "Booking requests",
+    href: ownerBookings(),
+    icon: CalendarCheck,
+  },
+];
+
+const becomeOwnerNavItems: NavItem[] = [
+  {
+    title: "Open a shop",
+    href: ownerSetup(),
+    icon: Store,
+  },
+];
+
+const adminNavItems: NavItem[] = [
+  {
+    title: "Categories",
+    href: adminCategories(),
+    icon: Tags,
+  },
+  {
+    title: "Users",
+    href: adminUsers(),
+    icon: Users,
+  },
+  {
+    title: "Item moderation",
+    href: adminItems(),
+    icon: ShieldAlert,
   },
 ];
 
 export function AppSidebar() {
+  const { isOwner, isAdmin } = usePage().props;
+
   return (
     <Sidebar
       collapsible="icon"
@@ -46,10 +109,7 @@ export function AppSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              asChild
-            >
+            <SidebarMenuButton asChild>
               <Link
                 href={dashboard()}
                 prefetch
@@ -62,14 +122,23 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <NavMain items={mainNavItems} />
+        <NavMain
+          label="Rent"
+          items={rentNavItems}
+        />
+        <NavMain
+          label="Shop"
+          items={isOwner ? ownerNavItems : becomeOwnerNavItems}
+        />
+        {isAdmin && adminNavItems.length > 0 && (
+          <NavMain
+            label="Admin"
+            items={adminNavItems}
+          />
+        )}
       </SidebarContent>
 
       <SidebarFooter>
-        <NavFooter
-          items={footerNavItems}
-          className="mt-auto"
-        />
         <NavUser />
       </SidebarFooter>
     </Sidebar>

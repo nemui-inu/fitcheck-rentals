@@ -1,25 +1,73 @@
-import { Head } from "@inertiajs/react";
-import { PlaceholderPattern } from "@/components/ui/placeholder-pattern";
+import { Head, Link, usePage } from "@inertiajs/react";
+import Heading from "@/components/heading";
+import { Button } from "@/components/ui/button";
 import { dashboard } from "@/routes";
+import { index as bookings } from "@/routes/bookings";
+import { index as marketplace } from "@/routes/marketplace";
+import {
+  dashboard as ownerDashboard,
+  setup as ownerSetup,
+} from "@/routes/owner";
 
 export default function Dashboard() {
+  const { auth, isOwner } = usePage().props;
+
+  const cards = [
+    {
+      title: "Find a fit",
+      body: "Browse active listings and request your dates.",
+      href: marketplace(),
+      action: "Browse the marketplace",
+    },
+    {
+      title: "My bookings",
+      body: "Track requests, pickups, and returns.",
+      href: bookings(),
+      action: "View my bookings",
+    },
+    isOwner
+      ? {
+          title: "Your shop",
+          body: "Answer requests and manage your items.",
+          href: ownerDashboard(),
+          action: "Open shop dashboard",
+        }
+      : {
+          title: "Rent out your costumes",
+          body: "Open a shop to list items and earn from your closet.",
+          href: ownerSetup(),
+          action: "Open a shop",
+        },
+  ];
+
   return (
     <>
       <Head title="Dashboard" />
-      <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-            <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-          </div>
-          <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-            <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-          </div>
-          <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-            <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-          </div>
-        </div>
-        <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-          <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+
+      <div className="space-y-6 px-4 py-6">
+        <Heading
+          title={`Hi, ${auth.user.name}`}
+          description="What are we suiting up for?"
+        />
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {cards.map((card) => (
+            <div
+              key={card.title}
+              className="flex flex-col gap-3 border p-5"
+            >
+              <h3>{card.title}</h3>
+              <p className="flex-1 text-sm text-muted-foreground">
+                {card.body}
+              </p>
+              <Button
+                variant="outline"
+                asChild
+              >
+                <Link href={card.href}>{card.action}</Link>
+              </Button>
+            </div>
+          ))}
         </div>
       </div>
     </>

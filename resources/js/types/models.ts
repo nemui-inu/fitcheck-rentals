@@ -1,0 +1,94 @@
+export type Category = {
+  id: number;
+  name: string;
+  code: string;
+  is_active: boolean;
+};
+
+export type ItemStatus =
+  | "draft"
+  | "active"
+  | "paused"
+  | "pending_review"
+  | "taken_down";
+
+export type UnitCondition = "new" | "excellent" | "good" | "fair" | "worn";
+
+export type UnitStatus = "active" | "maintenance" | "retired";
+
+export type ItemImage = {
+  id: number;
+  path: string;
+  url: string;
+  sort_order: number;
+};
+
+export type ItemUnit = {
+  id: number;
+  item_id: number;
+  label: string;
+  condition: UnitCondition;
+  status: UnitStatus;
+};
+
+export type Item = {
+  id: number;
+  category_id: number;
+  name: string;
+  series: string | null;
+  character: string | null;
+  size: string | null;
+  description: string | null;
+  daily_rate: number;
+  deposit: number;
+  status: ItemStatus;
+  takedown_reason: string | null;
+  category?: Category;
+  cover_image?: ItemImage | null;
+  images?: ItemImage[];
+  units?: ItemUnit[];
+  units_count?: number;
+};
+
+export type Paginated<T> = {
+  data: T[];
+  current_page: number;
+  last_page: number;
+  total: number;
+  prev_page_url: string | null;
+  next_page_url: string | null;
+};
+
+export type OwnerProfile = {
+  id: number;
+  shop_name: string;
+  meetup_area: string;
+};
+
+export type BookingStatus =
+  | "pending"
+  | "approved"
+  | "active"
+  | "returned"
+  | "rejected"
+  | "cancelled";
+
+export type Booking = {
+  id: number;
+  reference: string;
+  start_date: string;
+  end_date: string;
+  total: number;
+  deposit: number;
+  status: BookingStatus;
+  returned_at: string | null;
+  created_at: string;
+  unit: ItemUnit & {
+    item: Item & {
+      owner_profile?: OwnerProfile & {
+        user?: { id: number; name: string; phone: string | null };
+      };
+    };
+  };
+  renter?: { id: number; name: string; phone: string | null };
+};

@@ -3,27 +3,28 @@
 namespace App\Models;
 
 use App\Enums\Role;
+use Carbon\CarbonImmutable;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $email
- * @property Carbon|null $email_verified_at
+ * @property CarbonImmutable|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property Role $role
  * @property string|null $phone
- * @property Carbon|null $suspended_at
+ * @property CarbonImmutable|null $suspended_at
  */
 #[Fillable(['name', 'email', 'password', 'phone'])]
 #[Hidden(['password', 'remember_token'])]
@@ -36,6 +37,8 @@ class User extends Authenticatable
 
     protected $attributes = [
         'role' => Role::User->value,
+        'phone' => null,
+        'suspended_at' => null,
     ];
 
     /**
@@ -59,6 +62,18 @@ class User extends Authenticatable
         return $this->hasOne(OwnerProfile::class);
     }
 
+    /** @return HasMany<Booking, $this> */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'renter_id');
+    }
+
+    /** @return HasMany<SocialAccount, $this> */
+    public function socialAccounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === Role::Admin;
@@ -67,5 +82,10 @@ class User extends Authenticatable
     public function isOwner(): bool
     {
         return $this->ownerProfile()->exists();
+    }
+
+    public function isSuspended(): bool
+    {
+        return $this->suspended_at !== null;
     }
 }

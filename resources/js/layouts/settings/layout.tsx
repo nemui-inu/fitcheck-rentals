@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useCurrentUrl } from "@/hooks/use-current-url";
 import { cn, toUrl } from "@/lib/utils";
 import { edit as editAppearance } from "@/routes/appearance";
+import { edit as editConnectedAccounts } from "@/routes/connected-accounts";
 import { edit } from "@/routes/profile";
 import { edit as editSecurity } from "@/routes/security";
 import type { NavItem } from "@/types";
@@ -19,6 +20,11 @@ const sidebarNavItems: NavItem[] = [
   {
     title: "Security",
     href: editSecurity(),
+    icon: null,
+  },
+  {
+    title: "Connected accounts",
+    href: editConnectedAccounts(),
     icon: null,
   },
   {
@@ -47,7 +53,6 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
             {sidebarNavItems.map((item, index) => (
               <Button
                 key={`${toUrl(item.href)}-${index}`}
-                size="sm"
                 variant="ghost"
                 asChild
                 className={cn("w-full justify-start", {

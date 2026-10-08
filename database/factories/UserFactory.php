@@ -53,4 +53,24 @@ class UserFactory extends Factory
             'role' => Role::Admin,
         ]);
     }
+
+    /**
+     * Indicate that the user is suspended.
+     */
+    public function suspended(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'suspended_at' => now(),
+        ]);
+    }
+
+    /**
+     * Indicate that the user has a phone number.
+     */
+    public function withPhone(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'phone' => fake()->numerify('0917#######'),
+        ]);
+    }
 }

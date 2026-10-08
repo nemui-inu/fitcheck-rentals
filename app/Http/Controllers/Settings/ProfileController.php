@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Models\Item;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class ProfileController extends Controller
         return Inertia::render('settings/profile', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
+            'hasPassword' => $request->user()->password !== null,
         ]);
     }
 
@@ -49,6 +51,12 @@ class ProfileController extends Controller
     public function destroy(ProfileDeleteRequest $request): RedirectResponse
     {
         $user = $request->user();
+
+        if ($user->ownerProfile()->exists() || $user->bookings()->exists() || Item::where('taken_down_by', $user->id)->exists()) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('Your account cannot be deleted while it has a shop, bookings, or item takedowns.')]);
+
+            return back();
+        }
 
         Auth::logout();
 
